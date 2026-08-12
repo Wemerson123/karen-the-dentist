@@ -37,9 +37,12 @@
   @media (max-width:900px){
     nav{grid-template-columns:auto auto!important}
     nav > div{display:none!important}
-    section[style*="grid-template-columns:minmax(0,.85fr)"] > div{grid-template-columns:1fr!important}
     #karen .grid-cols{display:block!important}
     div[style*="repeat(3,minmax(0,1fr))"]{grid-template-columns:1fr!important}
+    .hero-overlay{background:linear-gradient(180deg,rgba(2,7,19,.55) 0%,rgba(2,7,19,.8) 55%,rgba(2,7,19,.97) 100%)!important}
+    .profile-roster{height:230px!important}
+    .quote-grid{grid-template-columns:1fr!important}
+    .quote-image{height:340px!important}
   }
 
   body.intro-lock{overflow:hidden}
@@ -89,7 +92,7 @@
       <video id="hero-video" muted loop playsinline preload="auto" poster="./assets/tooth-blue-hero.png" style="width:100%;height:100%;object-fit:cover;object-position:70% center">
         <source src="./assets/video/hero-marble-loop.mp4" type="video/mp4">
       </video>
-      <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,7,19,.97) 0%,rgba(2,7,19,.75) 38%,rgba(2,7,19,.1) 68%)"></div>
+      <div class="hero-overlay" style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,7,19,.97) 0%,rgba(2,7,19,.75) 38%,rgba(2,7,19,.1) 68%)"></div>
     </div>
     <div style="position:relative;z-index:2;padding:0 5vw 100px;max-width:640px">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px">
@@ -137,7 +140,7 @@
         <a href="#booking" style="display:inline-block;background:linear-gradient(120deg,#0e54dc,#2f8dff 52%,#8cdaff);color:#fff;padding:16px 28px;font-size:12.5px;text-decoration:none">Book appointment →</a>
       </div>
       <div>
-        <div style="height:560px;display:flex;align-items:flex-end;justify-content:center;gap:0;overflow:hidden">
+        <div class="profile-roster" style="height:560px;display:flex;align-items:flex-end;justify-content:center;gap:0;overflow:hidden">
           <button class="profile-photo" data-index="0" aria-label="Show Gentle Care profile" aria-pressed="false">
             <img src="./assets/karen-care.jpg" alt="Karen providing gentle care">
             <span class="profile-tag">GENTLE CARE</span>
@@ -327,8 +330,8 @@
     </div>
   </section>
 
-  <section style="min-height:640px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);background:#020713">
-    <img src="./assets/karen-portrait.jpg" alt="Dr Karen with a young patient" style="width:100%;height:100%;object-fit:cover;min-width:0">
+  <section class="quote-grid" style="min-height:640px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);background:#020713">
+    <img class="quote-image" src="./assets/karen-portrait.jpg" alt="Dr Karen with a young patient" style="width:100%;height:100%;object-fit:cover;min-width:0">
     <div style="display:flex;flex-direction:column;justify-content:center;padding:80px 6vw;min-width:0">
       <span style="font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#78caff;margin-bottom:22px">Dr Karen Silva</span>
       <blockquote style="font-family:'Italiana',serif;font-size:clamp(28px,3.4vw,44px);line-height:1.25;color:#f7fbff;margin:0 0 30px;font-weight:400">"The best dentistry begins when someone feels truly <em style="color:#8bd5ff;font-style:normal">seen.</em>"</blockquote>
