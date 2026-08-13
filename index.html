@@ -102,6 +102,8 @@
        centre crop, which cut Karen's head off entirely and left only her collar.
        A ratio keeps the frame near the photo's own shape at every width. */
     .quote-image{height:auto!important;aspect-ratio:5/4}
+    .sac{grid-template-columns:1fr!important;gap:36px!important}
+    .sac__frame{height:auto!important;aspect-ratio:1/1}
     .care-grid{grid-template-columns:1fr!important}
     .care-grid article{border-right:none!important;border-bottom:1px solid #1c2b45!important}
     .care-grid article:last-child{border-bottom:none!important}
@@ -317,20 +319,25 @@
     </div>
   </section>
 
-  <!-- The photo is square (2560x2560) inside a full-bleed band that is ~2:1 on a
-       laptop, so cover discards half its height. At 28% the crop beheaded Karen
-       and sliced the child's face at the chin. 10% keeps Karen's head whole and
-       leaves the child reading as hair at the base, not a cut-off face; the
-       taller band softens how much is lost in the first place. -->
-  <section style="position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;overflow:hidden">
-    <img src="./assets/karen-science-art-care.jpg" alt="Dr Karen Silva smiling directly at the camera" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 10%">
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,7,19,.3),rgba(2,7,19,.85))"></div>
-    <div style="position:relative;z-index:2;text-align:center">
-      <span style="display:block;font-family:'Italiana',serif;font-size:clamp(40px,8vw,120px);line-height:.95;color:#f7fbff">Science.</span>
-      <span style="display:block;font-family:'Italiana',serif;font-style:italic;font-size:clamp(40px,8vw,120px);line-height:.95;color:#8bd5ff">Art.</span>
-      <span style="display:block;font-family:'Italiana',serif;font-size:clamp(40px,8vw,120px);line-height:.95;color:#f7fbff">Care.</span>
+  <!-- The photo is square (2560x2560) and both faces sit 4%–70% down it, so any
+       full-bleed band would have to be ~1.4:1 to contain them — 1029px tall on a
+       1440 screen, 1371px on a 1920 one. Taller than the viewport, at every size.
+       Full-bleed simply cannot hold this photograph. Framed as a panel instead,
+       it never scales past the band height, so the whole picture survives. -->
+  <section class="sac" style="position:relative;min-height:88vh;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);align-items:center;gap:clamp(28px,5vw,72px);padding:clamp(70px,10vh,110px) 5vw;background:#020713;overflow:hidden">
+    <div style="position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 70% 80% at 22% 50%,rgba(23,104,255,.14),transparent 70%)"></div>
+    <figure class="sac__frame" style="position:relative;z-index:1;margin:0;height:min(70vh,600px)">
+      <img src="./assets/karen-science-art-care.jpg" alt="Dr Karen Silva with a young patient in the clinic" style="width:100%;height:100%;object-fit:cover;object-position:50% 42%">
+      <figcaption style="position:absolute;inset:0;border:1px solid rgba(139,213,255,.28);pointer-events:none"></figcaption>
+    </figure>
+    <div style="position:relative;z-index:1">
+      <span style="display:block;font-family:'Italiana',serif;font-size:clamp(40px,6.4vw,104px);line-height:.95;color:#f7fbff">Science.</span>
+      <span style="display:block;font-family:'Italiana',serif;font-style:italic;font-size:clamp(40px,6.4vw,104px);line-height:.95;color:#8bd5ff">Art.</span>
+      <span style="display:block;font-family:'Italiana',serif;font-size:clamp(40px,6.4vw,104px);line-height:.95;color:#f7fbff">Care.</span>
+      <!-- was absolutely positioned bottom-left over the old full-bleed photo;
+           in the panel layout it belongs in the type column's flow -->
+      <div style="margin-top:clamp(28px,4vh,46px);color:#cfe6ff;font-size:13px;line-height:1.6"><b style="font-family:'Italiana',serif;font-size:22px;color:#8bd5ff;display:block;margin-bottom:6px;font-weight:400">02</b>The future of dentistry<br>still feels deeply human.</div>
     </div>
-    <div style="position:absolute;left:5vw;bottom:6vh;z-index:2;color:#cfe6ff;font-size:13px;line-height:1.6"><b style="font-family:'Italiana',serif;font-size:22px;color:#8bd5ff;display:block;margin-bottom:6px;font-weight:400">02</b>The future of dentistry<br>still feels deeply human.</div>
   </section>
 
   <section id="tech" style="background:#f7fbff;color:#0d1420;padding:130px 5vw">
