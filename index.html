@@ -91,18 +91,19 @@
   .ig-bar:hover .ig-bar__thumb,.ig-bar__thumb.is-grabbing{background:#8bd5ff}
   .ig-bar__thumb.is-grabbing{cursor:grabbing}
 
-  /* Pinned gallery. Height of .ig-pin is set in JS to viewport + rail travel;
-     the stage sticks while that distance is consumed. Pointer-coarse (phones)
-     and reduced-motion are excluded — there the rail stays a normal swipe. */
+  /* Pinned gallery — touch included. The section's height is set in JS to the
+     stage plus a scroll budget, and the stage sticks while that budget is
+     consumed, so swiping down runs the photos sideways. Only reduced-motion
+     opts out, keeping the plain swipe rail. */
   .ig-pin__stage{position:relative}
-  @media (min-width:901px) and (prefers-reduced-motion:no-preference){
-    .ig-pin.is-pinned .ig-pin__stage{position:sticky;top:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
-    /* mandatory snapping yanks scrollLeft back to the nearest card every time
-       the scroll driver writes to it, so the rail crawled instead of tracking */
-    /* !important because both are set inline on #ig-rail, and inline wins.
-       Mandatory snapping yanks scrollLeft back to the nearest card every time
-       the scroll driver writes to it, so the rail crawled instead of tracking. */
-    .ig-pin.is-pinned #ig-rail{scroll-behavior:auto!important;scroll-snap-type:none!important}
+  @media (prefers-reduced-motion:no-preference){
+    .ig-pin.is-pinned .ig-pin__stage{position:sticky;top:0;min-height:100svh;display:flex;flex-direction:column;justify-content:center}
+    /* !important because all three are set inline on #ig-rail, and inline wins.
+       Mandatory snapping yanks scrollLeft back to the nearest card on every
+       write from the scroll driver, so the rail crawled instead of tracking.
+       overflow hidden + touch-action:pan-y stop a finger dragging the rail
+       sideways against the page, which would fight the driver. */
+    .ig-pin.is-pinned #ig-rail{scroll-behavior:auto!important;scroll-snap-type:none!important;overflow-x:hidden!important;touch-action:pan-y}
   }
 
   [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
@@ -641,17 +642,18 @@
   var igTrack = document.getElementById('ig-progress-track');
   var igThumb = document.getElementById('ig-progress-fill');
 
-  var igPinned = false, igTravel = 0, igTicking = false;
-  var igWide = matchMedia('(min-width:901px)');
-  var igFine = matchMedia('(pointer:fine)');
+  // igBudget is how far the PAGE scrolls while pinned; it is deliberately not
+  // the rail's own width. Uncapped, the phone rail would demand ~3.6 screens of
+  // swiping to clear the gallery, which reads as a frozen page.
+  var igPinned = false, igBudget = 0;
 
   function igMax() { return Math.max(0, igRail.scrollWidth - igRail.clientWidth); }
 
   // 0..1 -> move the rail, or the page when the section is pinned
   function igGoTo(p, smooth) {
     p = Math.min(1, Math.max(0, p));
-    if (igPinned && igTravel > 0) {
-      var top = igSection.offsetTop + p * igTravel;
+    if (igPinned && igBudget > 0) {
+      var top = igSection.offsetTop + p * igBudget;
       window.scrollTo({ top: top, behavior: smooth ? 'smooth' : 'auto' });
     } else {
       igRail.scrollTo({ left: p * igMax(), behavior: smooth ? 'smooth' : 'auto' });
@@ -703,27 +705,29 @@
   });
 
   function igApply() {
-    igTicking = false;
-    if (!igPinned || igTravel <= 0) return;
+    if (!igPinned || igBudget <= 0) return;
     var top = igSection.getBoundingClientRect().top;
-    igRail.scrollLeft = Math.min(1, Math.max(0, -top / igTravel)) * igMax();
+    // progress through the scroll budget maps onto the rail's full width, so
+    // the photos always finish exactly as the section releases
+    igRail.scrollLeft = Math.min(1, Math.max(0, -top / igBudget)) * igMax();
   }
 
   function igMeasure() {
-    // phones keep the native swipe; forcing a pin on touch traps the page
-    igPinned = igWide.matches && igFine.matches && !reduceMotion;
+    igPinned = !reduceMotion;
     igSection.classList.toggle('is-pinned', igPinned);
     igSection.style.height = '';
     if (!igPinned) { igPaintBar(); return; }
-    igTravel = igMax();
-    if (igTravel > 0) igSection.style.height = (igStage.offsetHeight + igTravel) + 'px';
+    // cap the swipe cost at ~2.2 screens however wide the rail actually is
+    igBudget = Math.min(igMax(), Math.round(innerHeight * 2.2));
+    if (igBudget > 0) igSection.style.height = (igStage.offsetHeight + igBudget) + 'px';
     igApply();
     igPaintBar();
   }
 
-  addEventListener('scroll', function () {
-    if (!igTicking) { igTicking = true; requestAnimationFrame(igApply); }
-  }, { passive: true });
+  // Applied straight from the passive listener rather than deferred to rAF:
+  // it is a single scrollLeft write, and routing it through rAF only added a
+  // frame of lag plus a failure mode when rAF is throttled.
+  addEventListener('scroll', igApply, { passive: true });
   addEventListener('resize', igMeasure, { passive: true });
   // late-loading images change scrollWidth, so the travel must be re-measured
   addEventListener('load', igMeasure);
