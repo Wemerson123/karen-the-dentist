@@ -79,6 +79,18 @@
   .profile-arrow{border:1px solid #2c3d5c;color:#1768ff;background:transparent;width:40px;height:40px;cursor:pointer;font-size:14px;transition:border-color .3s ease,color .3s ease}
   .profile-arrow:hover{border-color:#1768ff;color:#8bd5ff}
 
+  /* The gallery scrolled, but silently: macOS hides native scrollbars, so the
+     only hint was a 2px bar that filled from the left — a progress readout, not
+     something you can grab. This is a real scrollbar: the thumb is sized to the
+     visible fraction and can be dragged. Native bar hidden so both never show. */
+  #ig-rail{scrollbar-width:none;-ms-overflow-style:none}
+  #ig-rail::-webkit-scrollbar{display:none}
+  .ig-bar{position:relative;height:6px;border-radius:6px;background:rgba(139,213,255,.14);cursor:pointer;touch-action:none}
+  .ig-bar__thumb{position:absolute;top:0;left:0;height:100%;width:20%;border-radius:6px;background:#5f9be8;
+    transition:background .25s ease;will-change:transform}
+  .ig-bar:hover .ig-bar__thumb,.ig-bar__thumb.is-grabbing{background:#8bd5ff}
+  .ig-bar__thumb.is-grabbing{cursor:grabbing}
+
   [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
   [data-reveal].d1{transition-delay:.1s}
   [data-reveal].d2{transition-delay:.2s}
@@ -404,8 +416,8 @@
       <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-12.jpg" alt="Real connections with patients" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">12 · Real connections</span></a>
     </div>
     <div style="padding:0 5vw">
-      <div id="ig-progress-track" style="height:2px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden">
-        <div id="ig-progress-fill" style="height:100%;width:0%;background:#1768ff;border-radius:2px"></div>
+      <div id="ig-progress-track" class="ig-bar" role="scrollbar" aria-controls="ig-rail" aria-orientation="horizontal" aria-label="Scroll the gallery" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div id="ig-progress-fill" class="ig-bar__thumb"></div>
       </div>
     </div>
   </section>
@@ -606,13 +618,58 @@
   document.getElementById('ig-prev').addEventListener('click', function(){ igScrollBy(-1); });
   document.getElementById('ig-next').addEventListener('click', function(){ igScrollBy(1); });
 
-  var igProgressFill = document.getElementById('ig-progress-fill');
+  // ---- Gallery scrollbar: a real one. The thumb is sized to the visible
+  // fraction of the rail and can be dragged; clicking the track jumps there.
+  var igTrack = document.getElementById('ig-progress-track');
+  var igThumb = document.getElementById('ig-progress-fill');
+
+  function igMaxScroll() { return igRail.scrollWidth - igRail.clientWidth; }
+
   function igUpdateProgress() {
-    var max = igRail.scrollWidth - igRail.clientWidth;
-    igProgressFill.style.width = (max > 0 ? (igRail.scrollLeft / max) * 100 : 0) + '%';
+    var max = igMaxScroll();
+    // thumb width mirrors how much of the rail is on screen — the whole point
+    // of a scrollbar, and what the old fill-from-zero bar never showed
+    var frac = igRail.scrollWidth > 0 ? igRail.clientWidth / igRail.scrollWidth : 1;
+    var wPct = Math.max(12, Math.min(100, frac * 100));
+    igThumb.style.width = wPct + '%';
+    var pos = max > 0 ? igRail.scrollLeft / max : 0;
+    igThumb.style.transform = 'translateX(' + (pos * (100 / wPct) * (100 - wPct)) + '%)';
+    igTrack.setAttribute('aria-valuenow', Math.round(pos * 100));
   }
   igRail.addEventListener('scroll', igUpdateProgress, { passive: true });
+  addEventListener('resize', igUpdateProgress, { passive: true });
   igUpdateProgress();
+
+  // drag the thumb / click the track
+  var igDragging = false;
+  function igSeek(clientX) {
+    var r = igTrack.getBoundingClientRect();
+    var tw = igThumb.getBoundingClientRect().width;
+    var travel = r.width - tw;
+    if (travel <= 0) return;
+    var p = Math.max(0, Math.min(1, (clientX - r.left - tw / 2) / travel));
+    igRail.scrollLeft = p * igMaxScroll();
+  }
+  igTrack.addEventListener('pointerdown', function (e) {
+    igDragging = true;
+    igThumb.classList.add('is-grabbing');
+    igTrack.setPointerCapture(e.pointerId);
+    // jumping instantly would fight the CSS smooth-scroll the arrows rely on
+    igRail.style.scrollBehavior = 'auto';
+    igSeek(e.clientX);
+  });
+  igTrack.addEventListener('pointermove', function (e) { if (igDragging) igSeek(e.clientX); });
+  function igEndDrag() {
+    igDragging = false;
+    igThumb.classList.remove('is-grabbing');
+    igRail.style.scrollBehavior = '';
+  }
+  igTrack.addEventListener('pointerup', igEndDrag);
+  igTrack.addEventListener('pointercancel', igEndDrag);
+  igTrack.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { igScrollBy(-1); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { igScrollBy(1); e.preventDefault(); }
+  });
 
   // Let a normal mouse wheel / trackpad scroll the rail sideways instead of doing nothing,
   // but only while there's still room to move — otherwise let it fall through to page scroll.
