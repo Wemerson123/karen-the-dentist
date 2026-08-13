@@ -91,6 +91,20 @@
   .ig-bar:hover .ig-bar__thumb,.ig-bar__thumb.is-grabbing{background:#8bd5ff}
   .ig-bar__thumb.is-grabbing{cursor:grabbing}
 
+  /* Pinned gallery. Height of .ig-pin is set in JS to viewport + rail travel;
+     the stage sticks while that distance is consumed. Pointer-coarse (phones)
+     and reduced-motion are excluded — there the rail stays a normal swipe. */
+  .ig-pin__stage{position:relative}
+  @media (min-width:901px) and (prefers-reduced-motion:no-preference){
+    .ig-pin.is-pinned .ig-pin__stage{position:sticky;top:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+    /* mandatory snapping yanks scrollLeft back to the nearest card every time
+       the scroll driver writes to it, so the rail crawled instead of tracking */
+    /* !important because both are set inline on #ig-rail, and inline wins.
+       Mandatory snapping yanks scrollLeft back to the nearest card every time
+       the scroll driver writes to it, so the rail crawled instead of tracking. */
+    .ig-pin.is-pinned #ig-rail{scroll-behavior:auto!important;scroll-snap-type:none!important}
+  }
+
   [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
   [data-reveal].d1{transition-delay:.1s}
   [data-reveal].d2{transition-delay:.2s}
@@ -389,7 +403,12 @@
     </div>
   </section>
 
-  <section style="background:#0b0a08;padding:80px 0">
+  <!-- Pinned horizontal gallery: the section is made tall in JS, an inner stage
+       sticks to the viewport, and page-scroll progress drives the rail sideways.
+       Driven by real scroll position rather than preventDefault on wheel, so
+       trackpad momentum, keyboard and scrollbars all keep working. -->
+  <section class="ig-pin" style="background:#0b0a08">
+    <div class="ig-pin__stage" style="padding:80px 0">
     <div style="padding:0 5vw;display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:50px;flex-wrap:wrap;gap:20px">
       <div><span style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:#78caff">From Karen's world</span><h2 style="font-family:'Italiana',serif;font-weight:400;font-size:clamp(38px,5vw,66px);line-height:.9;margin:16px 0 0;color:#f7fbff">Beyond the<br><em style="color:#8bd5ff;font-style:normal">Dental Chair</em></h2></div>
       <div style="text-align:right;color:#7690b2;font-size:11px;line-height:1.6">
@@ -419,6 +438,7 @@
       <div id="ig-progress-track" class="ig-bar" role="scrollbar" aria-controls="ig-rail" aria-orientation="horizontal" aria-label="Scroll the gallery" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div id="ig-progress-fill" class="ig-bar__thumb"></div>
       </div>
+    </div>
     </div>
   </section>
 
@@ -608,62 +628,73 @@
     renderProfile();
   });
 
-  // ---- Instagram gallery: explicit prev/next scroll controls ----
+  // ---- Instagram gallery ----------------------------------------------------
+  // On desktop the section pins and page-scroll drives the rail sideways; the
+  // page only continues once the photos run out. Both previous wheel handlers
+  // are gone: one forced vertical wheel into horizontal, the other forced it
+  // back to the page, and they fought each other. Nothing intercepts wheel now
+  // — real scroll position is the single source of truth, so trackpad momentum,
+  // keyboard, find-in-page and scroll restoration all behave normally.
   var igRail = document.getElementById('ig-rail');
+  var igSection = document.querySelector('.ig-pin');
+  var igStage = document.querySelector('.ig-pin__stage');
+  var igTrack = document.getElementById('ig-progress-track');
+  var igThumb = document.getElementById('ig-progress-fill');
+
+  var igPinned = false, igTravel = 0, igTicking = false;
+  var igWide = matchMedia('(min-width:901px)');
+  var igFine = matchMedia('(pointer:fine)');
+
+  function igMax() { return Math.max(0, igRail.scrollWidth - igRail.clientWidth); }
+
+  // 0..1 -> move the rail, or the page when the section is pinned
+  function igGoTo(p, smooth) {
+    p = Math.min(1, Math.max(0, p));
+    if (igPinned && igTravel > 0) {
+      var top = igSection.offsetTop + p * igTravel;
+      window.scrollTo({ top: top, behavior: smooth ? 'smooth' : 'auto' });
+    } else {
+      igRail.scrollTo({ left: p * igMax(), behavior: smooth ? 'smooth' : 'auto' });
+    }
+  }
+
   function igScrollBy(dir) {
     var card = igRail.querySelector('a');
     var step = card ? card.getBoundingClientRect().width + 18 : igRail.clientWidth * 0.8;
-    igRail.scrollBy({ left: dir * step, behavior: 'smooth' });
+    var max = igMax();
+    igGoTo(max > 0 ? (igRail.scrollLeft + dir * step) / max : 0, true);
   }
   document.getElementById('ig-prev').addEventListener('click', function(){ igScrollBy(-1); });
   document.getElementById('ig-next').addEventListener('click', function(){ igScrollBy(1); });
 
-  // ---- Gallery scrollbar: a real one. The thumb is sized to the visible
-  // fraction of the rail and can be dragged; clicking the track jumps there.
-  var igTrack = document.getElementById('ig-progress-track');
-  var igThumb = document.getElementById('ig-progress-fill');
-
-  function igMaxScroll() { return igRail.scrollWidth - igRail.clientWidth; }
-
-  function igUpdateProgress() {
-    var max = igMaxScroll();
-    // thumb width mirrors how much of the rail is on screen — the whole point
-    // of a scrollbar, and what the old fill-from-zero bar never showed
+  // thumb is sized to the visible fraction — what a scrollbar is actually for
+  function igPaintBar() {
     var frac = igRail.scrollWidth > 0 ? igRail.clientWidth / igRail.scrollWidth : 1;
     var wPct = Math.max(12, Math.min(100, frac * 100));
     igThumb.style.width = wPct + '%';
+    var max = igMax();
     var pos = max > 0 ? igRail.scrollLeft / max : 0;
     igThumb.style.transform = 'translateX(' + (pos * (100 / wPct) * (100 - wPct)) + '%)';
     igTrack.setAttribute('aria-valuenow', Math.round(pos * 100));
   }
-  igRail.addEventListener('scroll', igUpdateProgress, { passive: true });
-  addEventListener('resize', igUpdateProgress, { passive: true });
-  igUpdateProgress();
+  igRail.addEventListener('scroll', igPaintBar, { passive: true });
 
-  // drag the thumb / click the track
   var igDragging = false;
   function igSeek(clientX) {
     var r = igTrack.getBoundingClientRect();
     var tw = igThumb.getBoundingClientRect().width;
     var travel = r.width - tw;
     if (travel <= 0) return;
-    var p = Math.max(0, Math.min(1, (clientX - r.left - tw / 2) / travel));
-    igRail.scrollLeft = p * igMaxScroll();
+    igGoTo((clientX - r.left - tw / 2) / travel, false);
   }
   igTrack.addEventListener('pointerdown', function (e) {
     igDragging = true;
     igThumb.classList.add('is-grabbing');
     igTrack.setPointerCapture(e.pointerId);
-    // jumping instantly would fight the CSS smooth-scroll the arrows rely on
-    igRail.style.scrollBehavior = 'auto';
     igSeek(e.clientX);
   });
   igTrack.addEventListener('pointermove', function (e) { if (igDragging) igSeek(e.clientX); });
-  function igEndDrag() {
-    igDragging = false;
-    igThumb.classList.remove('is-grabbing');
-    igRail.style.scrollBehavior = '';
-  }
+  function igEndDrag() { igDragging = false; igThumb.classList.remove('is-grabbing'); }
   igTrack.addEventListener('pointerup', igEndDrag);
   igTrack.addEventListener('pointercancel', igEndDrag);
   igTrack.addEventListener('keydown', function (e) {
@@ -671,26 +702,32 @@
     if (e.key === 'ArrowRight') { igScrollBy(1); e.preventDefault(); }
   });
 
-  // Let a normal mouse wheel / trackpad scroll the rail sideways instead of doing nothing,
-  // but only while there's still room to move — otherwise let it fall through to page scroll.
-  igRail.addEventListener('wheel', function(e){
-    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-    var atStart = igRail.scrollLeft <= 0;
-    var atEnd = igRail.scrollLeft + igRail.clientWidth >= igRail.scrollWidth - 1;
-    if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
-    igRail.scrollLeft += e.deltaY;
-    e.preventDefault();
-  }, { passive: false });
+  function igApply() {
+    igTicking = false;
+    if (!igPinned || igTravel <= 0) return;
+    var top = igSection.getBoundingClientRect().top;
+    igRail.scrollLeft = Math.min(1, Math.max(0, -top / igTravel)) * igMax();
+  }
 
-  // A horizontal-only overflow rail silently redirects vertical mouse-wheel scrolls into
-  // horizontal scroll, trapping the page mid-section. Forward vertical-dominant wheel input
-  // back to the page and let the rail keep native horizontal/trackpad scrolling otherwise.
-  igRail.addEventListener('wheel', function(e){
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-      e.preventDefault();
-      window.scrollBy(0, e.deltaY);
-    }
-  }, { passive: false });
+  function igMeasure() {
+    // phones keep the native swipe; forcing a pin on touch traps the page
+    igPinned = igWide.matches && igFine.matches && !reduceMotion;
+    igSection.classList.toggle('is-pinned', igPinned);
+    igSection.style.height = '';
+    if (!igPinned) { igPaintBar(); return; }
+    igTravel = igMax();
+    if (igTravel > 0) igSection.style.height = (igStage.offsetHeight + igTravel) + 'px';
+    igApply();
+    igPaintBar();
+  }
+
+  addEventListener('scroll', function () {
+    if (!igTicking) { igTicking = true; requestAnimationFrame(igApply); }
+  }, { passive: true });
+  addEventListener('resize', igMeasure, { passive: true });
+  // late-loading images change scrollWidth, so the travel must be re-measured
+  addEventListener('load', igMeasure);
+  igMeasure();
 
   // ---- Scroll reveals ----
   var revealEls = document.querySelectorAll('[data-reveal]');
