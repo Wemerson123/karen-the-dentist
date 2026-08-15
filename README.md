@@ -1,10 +1,15 @@
-# Handoff: Karen The Dentist — Landing Page
+# Karen The Dentist — Landing Page
+
+**This is the live site, not a handoff bundle.** It started as a design handoff and became production; the spec below is kept because it still documents the design accurately.
+
+- **Live:** https://wemerson123.github.io/karen-the-dentist/
+- **Served from:** `index.html`, GitHub Pages, branch `master`, path `/`
+- **Deploy:** commit and push to `master`. No build step — plain HTML/CSS/vanilla JS, only Google Fonts is external.
 
 ## Overview
-Premium single-page marketing site for Dr. Karen Silva's dental practice (Noosaville, Sunshine Coast). Cinematic "Sapphire" art direction: deep navy/ice palette, full-bleed photography, a character-select style profile picker, scroll-reactive hero and chair visuals, and an Instagram-style horizontal photo rail. Goal: drive bookings via Instagram DM and showcase the clinic's personal, high-tech approach.
+Premium single-page marketing site for Dr. Karen Silva's dental practice (Noosaville, Sunshine Coast). Cinematic "Sapphire" art direction: deep navy/ice palette, full-bleed photography, a character-select style profile picker, scroll-reactive hero and chair visuals, and an Instagram-style horizontal photo rail.
 
-## About the Design Files
-The bundled file (`karen-the-dentist.html`) is a **design reference built in HTML** — a working prototype showing exact layout, copy, motion, and interaction, not production code to paste as-is. Recreate this design in the target codebase's existing framework (React/Next.js, Vue, etc.) using its component and styling conventions. If no framework exists yet, plain semantic HTML/CSS/vanilla JS (as authored here) is a reasonable default — the site has no build dependencies beyond Google Fonts.
+**Booking channels:** phone (`+61 420 234 815`) and WhatsApp are the primary calls to action; Instagram is secondary. (An earlier version of this document said bookings ran through Instagram DM — that changed and this line is the current behaviour.)
 
 ## Fidelity
 **High-fidelity.** Colors, typography, spacing, copy, and photography are final. Recreate pixel-perfectly; only reflow for real responsive breakpoints (the prototype is desktop-first).
@@ -73,5 +78,7 @@ All photography is the client's own (not stock):
 - Fonts: Google Fonts "Italiana" and "DM Sans" (loaded via `<link>`, no license concerns)
 
 ## Files
-- `karen-the-dentist.html` — the full design reference (structure + inline styles + interaction logic)
+- `index.html` — **the site.** Structure, inline styles and interaction logic, all in one file. This is what Pages serves and the only file to edit.
 - `assets/` — every image referenced above, at the same relative paths the HTML uses
+
+Two files were removed on 2026-08-15: `karen-the-dentist.html` (a byte-identical copy of `index.html` that had to be hand-synced and had already drifted once) and `karen-the-dentist-source.dc.html` (a broken design-tool export — it loads `./support.js`, which was never in the repo). Both were publicly reachable and served duplicate content. They remain in git history if ever needed.
