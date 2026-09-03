@@ -141,6 +141,9 @@
     div[style*="repeat(4,minmax(0,1fr))"] article h3{margin:20px 0 10px!important}
     .hero-overlay{background:linear-gradient(180deg,rgba(2,7,19,.15) 0%,rgba(2,7,19,.20) 40%,rgba(2,7,19,.75) 62%,#020713 78%)!important}
     .profile-roster{height:230px!important}
+    /* As tags novas sao mais longas ("CARE BEYOND THE CHECK-UP"): com nowrap elas
+       estouram a largura da foto (~108px) e invadem as vizinhas no celular. */
+    .profile-tag{white-space:normal;width:94%;line-height:1.7}
     .quote-grid{grid-template-columns:1fr!important}
     /* Was a fixed 340px tall at full width — on a square source that is a ~2.7:1
        centre crop, which cut Karen's head off entirely and left only her collar.
@@ -251,23 +254,9 @@
     </div>
     <div class="grid-cols" style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);align-items:center;gap:50px;position:relative">
       <div>
-        <small id="active-profile-label" style="color:#1768ff;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase">Personal Dentistry</small>
+        <small id="active-profile-label" style="color:#1768ff;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase">Clear Communication</small>
         <h3 style="font-size:44px;margin:16px 0 20px;color:#f7fbff;font-weight:400">Dr Karen Silva</h3>
-        <p id="active-profile-quote" style="color:#8798b2;line-height:1.7;font-size:13.5px;max-width:400px;margin:0 0 32px">Thoughtful dentistry starts with listening. Every visit is shaped around the person in the chair.</p>
-        <dl style="max-width:340px;margin:0 0 34px;border-top:1px solid #1c2b45">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:13px 0;border-bottom:1px solid #1c2b45">
-            <dt style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#7690b2">Practice</dt>
-            <dd style="margin:0;font-size:13px;color:#cfe6ff">General Dentist</dd>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:13px 0;border-bottom:1px solid #1c2b45">
-            <dt style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#7690b2">Where</dt>
-            <dd style="margin:0;font-size:13px;color:#cfe6ff">Noosaville, Sunshine Coast</dd>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:13px 0;border-bottom:1px solid #1c2b45">
-            <dt style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#7690b2">Approach</dt>
-            <dd style="margin:0;font-size:13px;color:#cfe6ff">Unhurried, patient-first</dd>
-          </div>
-        </dl>
+        <p id="active-profile-quote" style="color:#8798b2;line-height:1.7;font-size:13.5px;max-width:400px;margin:0 0 40px">Your concerns are heard, treatment options are explained clearly, and decisions are made together.</p>
         <a href="https://www.noosavillefamilydental.com.au" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;padding:16px 30px;font-size:12px;text-decoration:none"><span>Book appointment</span><span class="arw">&#8594;</span></a>
       </div>
       <div>
@@ -276,13 +265,13 @@
             <img src="./assets/karen-care.jpg" alt="Karen providing gentle care">
             <span class="profile-tag">GENTLE CARE</span>
           </button>
-          <button class="profile-photo active" data-index="1" aria-label="Show Dr Karen profile" aria-pressed="true">
+          <button class="profile-photo active" data-index="1" aria-label="Show Clear Communication profile" aria-pressed="true">
             <img src="./assets/karen-hero.jpg" alt="Dr Karen Silva">
-            <span class="profile-tag">DR KAREN</span>
+            <span class="profile-tag">CLEAR COMMUNICATION</span>
           </button>
-          <button class="profile-photo" data-index="2" aria-label="Show Smile Design profile" aria-pressed="false">
+          <button class="profile-photo" data-index="2" aria-label="Show Care Beyond the Check-Up profile" aria-pressed="false">
             <img src="./assets/karen-mirror.jpg" alt="Karen discussing a smile">
-            <span class="profile-tag">SMILE DESIGN</span>
+            <span class="profile-tag">CARE BEYOND THE CHECK-UP</span>
           </button>
         </div>
       </div>
@@ -325,20 +314,22 @@
       <article data-reveal style="background:#fff;padding-bottom:30px">
         <img src="./assets/karen-child.jpg" alt="Dr Karen welcoming a young patient" style="height:390px;width:100%;object-fit:cover;object-position:50% 20%;filter:saturate(.85)">
         <span style="font-family:'Italiana',serif;color:#1768ff;display:block;margin:24px 25px 8px;font-size:19px">01</span>
-        <h3 style="font-size:29px;margin:0 25px 10px;font-weight:400">Warmth</h3>
-        <p style="margin:0 25px;color:#5c6675;font-size:12.5px;line-height:1.6">An unhurried welcome and a calmer experience at every age.</p>
+        <h3 style="font-size:29px;margin:0 25px 10px;font-weight:400">Family Care</h3>
+        <em style="display:block;margin:0 25px 8px;font-family:'Italiana',serif;font-style:normal;font-size:17px;color:#1768ff">Healthy smiles start here.</em>
+        <p style="margin:0 25px;color:#5c6675;font-size:12.5px;line-height:1.6">Helping children, adults and families build healthy smiles for life.</p>
       </article>
       <article data-reveal class="d1" style="background:#fff;padding-bottom:30px">
         <img src="./assets/karen-scan.jpg" alt="Digital dental technology" style="height:390px;width:100%;object-fit:cover;filter:saturate(.85)">
         <span style="font-family:'Italiana',serif;color:#1768ff;display:block;margin:24px 25px 8px;font-size:19px">02</span>
-        <h3 style="font-size:29px;margin:0 25px 10px;font-weight:400">Precision</h3>
-        <p style="margin:0 25px;color:#5c6675;font-size:12.5px;line-height:1.6">Modern tools support clear planning and considered care.</p>
+        <h3 style="font-size:29px;margin:0 25px 10px;font-weight:400">Precision and Technology</h3>
+        <p style="margin:0 25px;color:#5c6675;font-size:12.5px;line-height:1.6">Modern tools support clear planning and personalised care.</p>
       </article>
       <article data-reveal class="d2" style="background:#fff;padding-bottom:30px">
         <img src="./assets/karen-shade-mirror.jpg" alt="Patient viewing her new smile with a mirror and shade guide" style="height:390px;width:100%;object-fit:cover;filter:saturate(.85)">
         <span style="font-family:'Italiana',serif;color:#1768ff;display:block;margin:24px 25px 8px;font-size:19px">03</span>
-        <h3 style="font-size:29px;margin:0 25px 10px;font-weight:400">Confidence</h3>
-        <p style="margin:0 25px;color:#5c6675;font-size:12.5px;line-height:1.6">Decisions are shared, explained and made together.</p>
+        <h3 style="font-size:29px;margin:0 25px 10px;font-weight:400">Natural Smile</h3>
+        <em style="display:block;margin:0 25px 8px;font-family:'Italiana',serif;font-style:normal;font-size:17px;color:#1768ff">Naturally you.</em>
+        <p style="margin:0 25px;color:#5c6675;font-size:12.5px;line-height:1.6">Thoughtful enhancements designed to help you smile with confidence.</p>
       </article>
     </div>
   </section>
@@ -641,9 +632,9 @@
 
   // ---- Character-select roster ----
   var profiles = [
-    { label: 'Gentle Care', quote: "A calmer visit starts with how you're greeted — every detail is considered." },
-    { label: 'Personal Dentistry', quote: 'Thoughtful dentistry starts with listening. Every visit is shaped around the person in the chair.' },
-    { label: 'Smile Design', quote: 'Seeing your own smile change is the moment confidence really begins.' }
+    { label: 'Gentle Care', quote: 'A calm, unhurried approach with time to listen, explain and help you feel comfortable — especially if dental visits make you nervous.' },
+    { label: 'Clear Communication', quote: 'Your concerns are heard, treatment options are explained clearly, and decisions are made together.' },
+    { label: 'Care Beyond the Check-Up', quote: 'Care that continues beyond treatment, supporting your smile and oral health for the long term.' }
   ];
   var active = 1;
   var photoButtons = document.querySelectorAll('.profile-photo');
