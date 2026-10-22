@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Karen The Dentist — Dentistry, personal.</title>
+<title>Dr Karen Silva | General Dentist in Noosaville</title>
 <meta name="description" content="Dr Karen Silva, general dentist in Noosaville on the Sunshine Coast. Unhurried, patient-first dental care for every age — book directly with Karen.">
 <meta name="theme-color" content="#020713">
 <link rel="icon" type="image/svg+xml" href="./assets/logo/mono-white.svg">
@@ -12,20 +12,25 @@
      it unfurled as a bare URL with no image and no name. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Karen The Dentist">
-<meta property="og:title" content="Karen The Dentist — Dentistry, personal.">
+<meta property="og:title" content="Dr Karen Silva | General Dentist in Noosaville">
 <meta property="og:description" content="Dr Karen Silva, general dentist in Noosaville, Sunshine Coast. Unhurried, patient-first dental care for every age.">
 <meta property="og:url" content="https://drkarensilva.com.au/">
-<meta property="og:image" content="https://drkarensilva.com.au/assets/karen-hero.jpg">
-<meta name="theme-color" content="#020713">
+<meta property="og:image" content="https://drkarensilva.com.au/assets/karen-hero.webp">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="en_AU">
+<meta property="og:image:alt" content="Dr Karen Silva, general dentist in Noosaville">
+<meta name="twitter:title" content="Dr Karen Silva | General Dentist in Noosaville">
+<meta name="twitter:description" content="Patient-first dental care at Noosaville Family Dental on the Sunshine Coast.">
+<meta name="twitter:image" content="https://drkarensilva.com.au/assets/karen-hero.webp">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Dentist",
+  "@id": "https://drkarensilva.com.au/#dentist",
   "name": "Dr Karen Silva — Karen The Dentist",
   "description": "General dentist in Noosaville, Sunshine Coast. Unhurried, patient-first dental care for every age.",
   "url": "https://drkarensilva.com.au/",
-  "image": "https://drkarensilva.com.au/assets/karen-hero.jpg",
+  "image": "https://drkarensilva.com.au/assets/karen-hero.webp",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Noosaville",
@@ -190,11 +195,12 @@
     #intro-logo,#intro-word,#intro-tag{transition:none}
   }
 </style>
+<script src="./assets/analytics.js"></script>
 </head>
 <body class="intro-lock">
 <div id="intro" role="presentation">
   <div id="intro-mark">
-    <img id="intro-logo" src="./assets/logo/mono-white.svg" alt="">
+    <img id="intro-logo" src="./assets/logo/mono-white.svg" alt="" decoding="async">
     <div id="intro-word">KAREN SILVA</div>
     <div id="intro-tag">Dentist</div>
   </div>
@@ -203,7 +209,7 @@
 
   <nav style="position:sticky;top:0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:24px 4vw;background:rgba(2,7,19,.75);backdrop-filter:blur(16px);border-bottom:1px solid rgba(130,201,255,.14)">
     <a href="#" style="display:flex;align-items:center;gap:12px;text-decoration:none;justify-self:start">
-      <img src="./assets/logo/mono-white.svg" alt="" style="height:30px;width:auto" aria-hidden="true">
+      <img src="./assets/logo/mono-white.svg" alt="" style="height:30px;width:auto" aria-hidden="true" decoding="async">
       <span style="display:flex;flex-direction:column;line-height:1.1">
         <span style="font-family:'Italiana',serif;font-size:17px;letter-spacing:.28em;color:#f7fbff">KAREN SILVA</span>
         <span style="font-size:8px;letter-spacing:.26em;text-transform:uppercase;color:#7690b2;margin-top:3px">General Dentist</span>
@@ -224,7 +230,7 @@
     <div style="position:absolute;inset:0;z-index:0;background:#020713">
       <!-- A borda esquerda da foto e dissolvida com uma mascara, senao fica um
            corte vertical duro entre o navy e o fundo claro do estudio. -->
-      <img src="./assets/karen-hero-cover.webp" alt="Dr Karen Silva, general dentist in Noosaville" class="hero-cover-img" style="position:absolute;top:0;right:0;height:100%;width:68%;max-width:none;object-fit:cover;object-position:50% 32%;-webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.25) 20%,rgba(0,0,0,.75) 38%,#000 56%);mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.25) 20%,rgba(0,0,0,.75) 38%,#000 56%)">
+      <img src="./assets/karen-hero-cover.webp" alt="Dr Karen Silva, general dentist in Noosaville" class="hero-cover-img" style="position:absolute;top:0;right:0;height:100%;width:68%;max-width:none;object-fit:cover;object-position:50% 32%;-webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.25) 20%,rgba(0,0,0,.75) 38%,#000 56%);mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.25) 20%,rgba(0,0,0,.75) 38%,#000 56%)" fetchpriority="high" decoding="async">
       <div class="hero-overlay" style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,7,19,.80) 0%,rgba(2,7,19,.48) 36%,rgba(2,7,19,.10) 56%,rgba(2,7,19,0) 70%)"></div>
     </div>
 
@@ -262,15 +268,15 @@
       <div>
         <div class="profile-roster" style="height:560px;display:flex;align-items:flex-end;justify-content:center;gap:0;overflow:hidden">
           <button class="profile-photo" data-index="0" aria-label="Show Gentle Care profile" aria-pressed="false">
-            <img src="./assets/karen-care.jpg" alt="Karen providing gentle care">
+            <img src="./assets/karen-care.webp" alt="Karen providing gentle care" loading="lazy" decoding="async">
             <span class="profile-tag">GENTLE CARE</span>
           </button>
           <button class="profile-photo active" data-index="1" aria-label="Show Clear Communication profile" aria-pressed="true">
-            <img src="./assets/karen-hero.jpg" alt="Dr Karen Silva">
+            <img src="./assets/karen-hero.webp" alt="Dr Karen Silva" loading="lazy" decoding="async">
             <span class="profile-tag">CLEAR COMMUNICATION</span>
           </button>
           <button class="profile-photo" data-index="2" aria-label="Show Care Beyond the Check-Up profile" aria-pressed="false">
-            <img src="./assets/karen-mirror.jpg" alt="Karen discussing a smile">
+            <img src="./assets/karen-mirror.webp" alt="Karen discussing a smile" loading="lazy" decoding="async">
             <span class="profile-tag">CARE BEYOND THE CHECK-UP</span>
           </button>
         </div>
@@ -290,7 +296,7 @@
   </div>
 
   <section id="chair-section" style="position:relative;height:88vh;display:flex;align-items:center;overflow:hidden;background:radial-gradient(circle at 62% 55%,#0a387e 0%,#031127 38%,#020713 72%)">
-    <video id="chair-video" muted playsinline preload="auto" poster="./assets/dental-chair-3d.png" style="position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;opacity:.92">
+    <video id="chair-video" muted playsinline preload="metadata" poster="./assets/dental-chair-3d.png" style="position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;opacity:.92">
       <source src="./assets/video/chair-orbit.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,7,19,.92) 0%,rgba(2,7,19,.55) 32%,transparent 60%)"></div>
@@ -312,20 +318,20 @@
     </div>
     <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px">
       <article data-reveal style="background:#fff;padding-bottom:30px">
-        <img src="./assets/karen-child.jpg" alt="Dr Karen welcoming a young patient" style="height:390px;width:100%;object-fit:cover;object-position:50% 20%;filter:saturate(.85)">
+        <img src="./assets/karen-child.webp" alt="Dr Karen welcoming a young patient" style="height:390px;width:100%;object-fit:cover;object-position:50% 20%;filter:saturate(.85)" loading="lazy" decoding="async">
         <span style="font-family:'Italiana',serif;color:#1768ff;display:block;margin:24px 25px 8px;font-size:19px">01</span>
         <h3 style="font-size:29px;margin:0 25px 10px;font-weight:400">Family Care</h3>
         <em style="display:block;margin:0 25px 8px;font-family:'Italiana',serif;font-style:normal;font-size:17px;color:#1768ff">Healthy smiles start here.</em>
         <p style="margin:0 25px;color:#5c6675;font-size:12.5px;line-height:1.6">Helping children, adults and families build healthy smiles for life.</p>
       </article>
       <article data-reveal class="d1" style="background:#fff;padding-bottom:30px">
-        <img src="./assets/karen-scan.jpg" alt="Digital dental technology" style="height:390px;width:100%;object-fit:cover;filter:saturate(.85)">
+        <img src="./assets/karen-scan.webp" alt="Digital dental technology" style="height:390px;width:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async">
         <span style="font-family:'Italiana',serif;color:#1768ff;display:block;margin:24px 25px 8px;font-size:19px">02</span>
         <h3 style="font-size:29px;margin:0 25px 10px;font-weight:400">Precision and Technology</h3>
         <p style="margin:0 25px;color:#5c6675;font-size:12.5px;line-height:1.6">Modern tools support clear planning and personalised care.</p>
       </article>
       <article data-reveal class="d2" style="background:#fff;padding-bottom:30px">
-        <img src="./assets/karen-shade-mirror.jpg" alt="Patient viewing her new smile with a mirror and shade guide" style="height:390px;width:100%;object-fit:cover;filter:saturate(.85)">
+        <img src="./assets/karen-shade-mirror.webp" alt="Patient viewing her new smile with a mirror and shade guide" style="height:390px;width:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async">
         <span style="font-family:'Italiana',serif;color:#1768ff;display:block;margin:24px 25px 8px;font-size:19px">03</span>
         <h3 style="font-size:29px;margin:0 25px 10px;font-weight:400">Natural Smile</h3>
         <em style="display:block;margin:0 25px 8px;font-family:'Italiana',serif;font-style:normal;font-size:17px;color:#1768ff">Naturally you.</em>
@@ -360,7 +366,7 @@
   </section>
 
   <section style="position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;background:#020713">
-    <video id="tour-video" autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+    <video id="tour-video" autoplay muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
       <source src="./assets/video/clinic-tour-loop.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,7,19,.9) 0%,rgba(2,7,19,.55) 40%,rgba(2,7,19,.15) 75%)"></div>
@@ -379,7 +385,7 @@
   <section class="sac" style="position:relative;min-height:88vh;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);align-items:center;gap:clamp(28px,5vw,72px);padding:clamp(70px,10vh,110px) 5vw;background:#020713;overflow:hidden">
     <div style="position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 70% 80% at 22% 50%,rgba(23,104,255,.14),transparent 70%)"></div>
     <figure class="sac__frame" style="position:relative;z-index:1;margin:0;height:min(70vh,600px)">
-      <img src="./assets/karen-science-art-care.jpg" alt="Dr Karen Silva with a young patient in the clinic" style="width:100%;height:100%;object-fit:cover;object-position:50% 42%">
+      <img src="./assets/karen-science-art-care.webp" alt="Dr Karen Silva with a young patient in the clinic" style="width:100%;height:100%;object-fit:cover;object-position:50% 42%" loading="lazy" decoding="async">
       <figcaption style="position:absolute;inset:0;border:1px solid rgba(139,213,255,.28);pointer-events:none"></figcaption>
     </figure>
     <div style="position:relative;z-index:1">
@@ -400,17 +406,17 @@
     <div style="max-width:1200px;margin:0 auto">
       <article data-reveal style="display:grid;grid-template-columns:60px 280px minmax(0,1fr);gap:36px;align-items:center;border-top:1px solid #dbe4f0;padding:30px 0">
         <b style="font-family:'Italiana',serif;color:#1768ff;font-size:26px;font-weight:400">01</b>
-        <img src="./assets/karen-scanning-action.jpg" alt="Digital scanning in action" style="height:170px;width:100%;object-fit:cover">
+        <img src="./assets/karen-scanning-action.webp" alt="Digital scanning in action" style="height:170px;width:100%;object-fit:cover" loading="lazy" decoding="async">
         <div><h3 style="font-size:32px;margin:0 0 12px;font-weight:400">Digital Scanning</h3><p style="color:#5c6675;font-size:13px;line-height:1.7;max-width:460px;margin:0">Clear visual information helps make conversations and planning easier to understand.</p></div>
       </article>
       <article data-reveal class="d1" style="display:grid;grid-template-columns:60px 280px minmax(0,1fr);gap:36px;align-items:center;border-top:1px solid #dbe4f0;padding:30px 0">
         <b style="font-family:'Italiana',serif;color:#1768ff;font-size:26px;font-weight:400">02</b>
-        <img src="./assets/karen-closeup-exam.jpg" alt="A close-up clinical exam" style="height:170px;width:100%;object-fit:cover">
+        <img src="./assets/karen-closeup-exam.webp" alt="A close-up clinical exam" style="height:170px;width:100%;object-fit:cover" loading="lazy" decoding="async">
         <div><h3 style="font-size:32px;margin:0 0 12px;font-weight:400">Considered Diagnosis</h3><p style="color:#5c6675;font-size:13px;line-height:1.7;max-width:460px;margin:0">Technology supports attention to detail — never replacing the human judgement behind care.</p></div>
       </article>
       <article data-reveal class="d2" style="display:grid;grid-template-columns:60px 280px minmax(0,1fr);gap:36px;align-items:center;border-top:1px solid #dbe4f0;border-bottom:1px solid #dbe4f0;padding:30px 0">
         <b style="font-family:'Italiana',serif;color:#1768ff;font-size:26px;font-weight:400">03</b>
-        <img src="./assets/karen-mirror-reveal.jpg" alt="Visual smile consultation with a mirror" style="height:170px;width:100%;object-fit:cover">
+        <img src="./assets/karen-mirror-reveal.webp" alt="Visual smile consultation with a mirror" style="height:170px;width:100%;object-fit:cover" loading="lazy" decoding="async">
         <div><h3 style="font-size:32px;margin:0 0 12px;font-weight:400">Visual Consultation</h3><p style="color:#5c6675;font-size:13px;line-height:1.7;max-width:460px;margin:0">See what Karen sees and take part in every decision about your smile.</p></div>
       </article>
     </div>
@@ -447,18 +453,18 @@
       </div>
     </div>
     <div id="ig-rail" style="display:flex;gap:18px;overflow-x:auto;padding:0 5vw 12px;scroll-snap-type:x mandatory;scroll-behavior:smooth">
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-01.jpg" alt="Digital diagnosis on screen" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">01 · Digital diagnosis</span></a>
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 360px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-02.jpg" alt="Smile shade selection" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">02 · Shade selection</span></a>
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-03.jpg" alt="Family visit" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">03 · Family visit</span></a>
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-04.jpg" alt="Intraoral scan" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">04 · Intraoral scan</span></a>
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-05.jpg" alt="Caring for little patients" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">05 · Little patients</span></a>
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-06.jpg" alt="Kids' care kit" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">06 · Kids' care kit</span></a>
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-07.jpg" alt="Behind the scenes at the clinic" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">07 · Behind the scenes</span></a>
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-08.jpg" alt="Karen at work in the clinic" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">08 · Karen at work</span></a>
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-09.jpg" alt="A lighter moment with plush toys" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">09 · A lighter moment</span></a>
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 360px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-10.jpg" alt="Clinic front desk" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">10 · Front desk</span></a>
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-11.jpg" alt="Oral health education" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">11 · Oral health education</span></a>
-      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-12.jpg" alt="Real connections with patients" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">12 · Real connections</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-01.webp" alt="Digital diagnosis on screen" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">01 · Digital diagnosis</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 360px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-02.webp" alt="Smile shade selection" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">02 · Shade selection</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-03.webp" alt="Family visit" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">03 · Family visit</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-04.webp" alt="Intraoral scan" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">04 · Intraoral scan</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-05.webp" alt="Caring for little patients" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">05 · Little patients</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-06.webp" alt="Kids' care kit" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">06 · Kids' care kit</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-07.webp" alt="Behind the scenes at the clinic" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">07 · Behind the scenes</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-08.webp" alt="Karen at work in the clinic" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">08 · Karen at work</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-09.webp" alt="A lighter moment with plush toys" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">09 · A lighter moment</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 360px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-10.webp" alt="Clinic front desk" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">10 · Front desk</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-11.webp" alt="Oral health education" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">11 · Oral health education</span></a>
+      <a href="https://www.instagram.com/karenthedentist/" target="_blank" rel="noreferrer" style="flex:0 0 260px;height:380px;position:relative;overflow:hidden;background:#171510;scroll-snap-align:start"><img src="./assets/ig-12.webp" alt="Real connections with patients" style="width:100%;height:100%;object-fit:cover;filter:saturate(.85)" loading="lazy" decoding="async"><span style="position:absolute;left:16px;bottom:14px;color:#fff;font-size:8px;letter-spacing:.15em;text-transform:uppercase">12 · Real connections</span></a>
     </div>
     <div style="padding:0 5vw">
       <div id="ig-progress-track" class="ig-bar" role="scrollbar" aria-controls="ig-rail" aria-orientation="horizontal" aria-label="Scroll the gallery" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
@@ -469,7 +475,7 @@
   </section>
 
   <section class="quote-grid" style="min-height:640px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);background:#020713">
-    <img class="quote-image" src="./assets/karen-portrait.jpg" alt="Dr Karen with a young patient" style="width:100%;height:100%;object-fit:cover;object-position:50% 18%;min-width:0">
+    <img class="quote-image" src="./assets/karen-portrait.webp" alt="Dr Karen with a young patient" style="width:100%;height:100%;object-fit:cover;object-position:50% 18%;min-width:0" loading="lazy" decoding="async">
     <div style="display:flex;flex-direction:column;justify-content:center;padding:80px 6vw;min-width:0">
       <span style="font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#78caff;margin-bottom:22px">Dr Karen Silva</span>
       <blockquote style="font-family:'Italiana',serif;font-size:clamp(28px,3.4vw,44px);line-height:1.25;color:#f7fbff;margin:0 0 30px;font-weight:400">"The best dentistry begins when someone feels truly <em style="color:#8bd5ff;font-style:normal">seen.</em>"</blockquote>
@@ -498,7 +504,7 @@
 
   <footer style="padding:50px 5vw;border-top:1px solid rgba(74,148,255,.15);display:flex;justify-content:space-between;align-items:center;color:#5c6675;font-size:11px;flex-wrap:wrap;gap:16px">
     <span style="font-family:'Italiana',serif;font-size:16px;letter-spacing:.3em;color:#f7fbff">KAREN</span>
-    <div style="display:flex;gap:30px">
+    <div style="display:flex;gap:24px;flex-wrap:wrap">
       <a href="#karen" style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#7690b2;text-decoration:none">About me</a>
       <a href="#care" style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#7690b2;text-decoration:none">Services</a>
       <a href="#tech" style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#7690b2;text-decoration:none">Technology</a>
@@ -506,6 +512,8 @@
     </div>
     <a href="tel:+61420234815" style="font-size:11px;letter-spacing:.1em;color:#8bd5ff;text-decoration:none">+61 420 234 815</a>
     <a href="https://brunelaphotography.pixieset.com/karen/" target="_blank" rel="noreferrer" style="font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#1768ff;text-decoration:none">Photography ↗</a>
+    <a href="./privacy.html" style="color:#9db6d6">Website privacy</a>
+    <button type="button" data-analytics-settings style="background:none;border:0;color:#9db6d6;font:inherit;text-decoration:underline;cursor:pointer;min-height:44px">Analytics preferences</button>
     <small>© 2026 Dr Karen Silva</small>
   </footer>
 </div>
@@ -789,5 +797,6 @@
   }
 })();
 </script>
+<script src="./assets/contact-events.js" defer></script>
 </body>
 </html>
