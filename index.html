@@ -296,8 +296,8 @@
   </div>
 
   <section id="chair-section" style="position:relative;height:88vh;display:flex;align-items:center;overflow:hidden;background:radial-gradient(circle at 62% 55%,#0a387e 0%,#031127 38%,#020713 72%)">
-    <video id="chair-video" muted playsinline preload="metadata" poster="./assets/dental-chair-3d.png" style="position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;opacity:.92">
-      <source src="./assets/video/chair-orbit.mp4" type="video/mp4">
+    <video id="chair-video" data-deferred-video muted playsinline preload="none" poster="./assets/dental-chair-3d.png" style="position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;opacity:.92">
+      <source data-src="./assets/video/chair-orbit.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,7,19,.92) 0%,rgba(2,7,19,.55) 32%,transparent 60%)"></div>
     <div style="position:relative;z-index:2;padding:0 5vw;max-width:540px">
@@ -366,8 +366,8 @@
   </section>
 
   <section style="position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;background:#020713">
-    <video id="tour-video" autoplay muted loop playsinline preload="metadata" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-      <source src="./assets/video/clinic-tour-loop.mp4" type="video/mp4">
+    <video id="tour-video" data-deferred-video muted loop playsinline preload="none" poster="./assets/clinic-tour-poster.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <source data-src="./assets/video/clinic-tour-web.mp4" type="video/mp4">
     </video>
     <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,7,19,.9) 0%,rgba(2,7,19,.55) 40%,rgba(2,7,19,.15) 75%)"></div>
     <div style="position:relative;z-index:2;padding:0 5vw;max-width:560px">
@@ -583,6 +583,34 @@
     // Safety net: never trap a visitor behind the intro, no matter what goes wrong above.
     setTimeout(function(){ if (!done) finish(); }, 3500);
   })();
+
+  // Load below-fold videos only when nearby. Reduced-motion/data-saver users keep posters.
+  var deferredVideos = document.querySelectorAll('[data-deferred-video]');
+  function loadVideo(video) {
+    var source = video.querySelector('source[data-src]');
+    if (!source) return;
+    source.src = source.getAttribute('data-src');
+    source.removeAttribute('data-src');
+    video.load();
+  }
+  if (!reduceMotion && !(navigator.connection && navigator.connection.saveData)) {
+    if ('IntersectionObserver' in window) {
+      var mediaObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          var video = entry.target;
+          if (entry.isIntersecting) {
+            loadVideo(video);
+            if (video.id === 'tour-video') video.play().catch(function() {});
+          } else if (video.id === 'tour-video') video.pause();
+        });
+      }, { rootMargin: '300px 0px' });
+      deferredVideos.forEach(function(video) { mediaObserver.observe(video); });
+    } else {
+      deferredVideos.forEach(function(video) { loadVideo(video); });
+      var fallbackTour = document.getElementById('tour-video');
+      if (fallbackTour) fallbackTour.play().catch(function() {});
+    }
+  }
 
   // ---- Hero ambient loop video ----
   // A capa agora e uma imagem, nao um video. O guard fica porque outras partes
